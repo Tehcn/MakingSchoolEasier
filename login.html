@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang = "en-US">
+    <head>
+        <title>MakingSchoolEasier - Login</title>
+        <link rel = "icon" href = "./pictures/favicon.png" type = "image/png">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+        <!-- Shared CSS Styling -->
+        <link rel = "stylesheet" href = "./styles/styles.main.css">
+
+        <!-- Connection to SQL Server for login -->
+        <script src = "./login.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm bg-light">
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-sm bg-dark navbar-dark container-fluid">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="./home.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./programming.html">Programming</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./math.html">Math</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./ela.html">ELA</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./science.html">Science</a>
+                  </li> |
+                  <li class="nav-item">
+                    <a class="nav-link" href="./signup.html">Signup</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="./login.html">Login</a>
+                  </li>
+                </ul>
+              </nav>
+          
+          </nav>
+        <div class = "jumbotron page-header">
+            <h1>MakingSchoolEasier - Login</h1>
+        </div>
+
+        <div class = "container-fluid">
+          <div class="issue">
+            
+          </div>
+          <form onsubmit = "login();">
+            <div class="custom-control custom-checkbox text-success">
+              <div class="form-group">
+                <label for="usr">Email:</label>
+                <input type="email" class="form-control" id="usr" placeholder="example@domain.com">
+              </div>
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <label class="custom-control-label" for="customCheck">Remember Me</label>
+                <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+              </div>
+              <div class="form-group">
+                <button class="btn btn-outline-success" type="submit">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <script type = "text/JavaScript">
+          const cookie = require('cookie');
+
+          const MongoClient = require('mongodb').MongoClient;
+          const uri = "mongodb+srv://WebserverUser:0JKTpt2rapbiUzgi@cluster0-bc3uh.azure.mongodb.net/Users?retryWrites=true&w=majority";
+          const client = new MongoClient(uri, { useNewUrlParser: true });
+
+          var usernameinput;
+          var passwordinput;
+
+          function login() {
+            client.connect(err => {
+              const collection = client.db("Users").collection("users");
+              var query = { username: usernameinput, password: passwordinput}
+              var user = collection.find(query).toArray(function(err, result) {
+                if (err) {
+                  document.getElementsByClassName("alert").innerHTML = "<div class = 'alert alert-danger'><strong>Uh-Oh!</strong> This alert box could indicate an incorrect email/password or the server being temporarily down!</div>";
+                }
+              })
+              
+              client.close();
+            });
+          }
+        </script>
+    </body>
+</html>

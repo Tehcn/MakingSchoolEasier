@@ -1,0 +1,17 @@
+{
+  "name": "nodes",
+  "version": "1.0.0",
+  "description": "e",
+  "main": "app.js",
+  "dependencies": {
+    "cookie": "^0.4.1",
+    "mongodb": "^3.5.9",
+    "node": "^14.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "runatest"
+  },
+  "author": "Noah Perry",
+  "license": "ISC"
+}
